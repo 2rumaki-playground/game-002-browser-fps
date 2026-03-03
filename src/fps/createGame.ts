@@ -16,21 +16,31 @@ import {
 	CAMERA_ELLIPSOID_XZ,
 	CAMERA_START_X,
 	CAMERA_START_Z,
+	CLEAR_COLOR,
+	GROUND_COLOR,
+	GROUND_EMISSIVE_COLOR,
+	LIGHT_GROUND_COLOR,
+	LIGHT_INTENSITY,
+	PILLAR_COLOR,
 	PILLAR_DIAMETER,
+	PILLAR_EMISSIVE_COLOR,
 	PILLAR_XZ,
+	WALL_COLOR,
+	WALL_EMISSIVE_COLOR,
 } from "./layout.ts";
 import { createShooting } from "./shooting.ts";
 
 export function createGame(canvas: HTMLCanvasElement) {
 	const engine = new Engine(canvas, true, { stencil: true });
 	const scene = new Scene(engine);
-	scene.clearColor = new Color4(0.03, 0.03, 0.05, 1);
+	scene.clearColor = new Color4(...CLEAR_COLOR);
 	scene.collisionsEnabled = true;
 	scene.gravity = new Vector3(0, -9.81 / 60, 0);
 
 	// --- Light ---
 	const light = new HemisphericLight("hemi", new Vector3(0, 1, 0), scene);
-	light.intensity = 0.9;
+	light.intensity = LIGHT_INTENSITY;
+	light.groundColor = new Color3(...LIGHT_GROUND_COLOR);
 
 	// --- Ground ---
 	const ground = MeshBuilder.CreateGround(
@@ -39,13 +49,15 @@ export function createGame(canvas: HTMLCanvasElement) {
 		scene,
 	);
 	const gmat = new StandardMaterial("gmat", scene);
-	gmat.diffuseColor = new Color3(0.15, 0.18, 0.22);
+	gmat.diffuseColor = new Color3(...GROUND_COLOR);
+	gmat.emissiveColor = new Color3(...GROUND_EMISSIVE_COLOR);
 	ground.material = gmat;
 	ground.checkCollisions = true;
 
 	// --- Walls ---
 	const wallMat = new StandardMaterial("wmat", scene);
-	wallMat.diffuseColor = new Color3(0.2, 0.2, 0.25);
+	wallMat.diffuseColor = new Color3(...WALL_COLOR);
+	wallMat.emissiveColor = new Color3(...WALL_EMISSIVE_COLOR);
 
 	const wallThickness = 1;
 	const wallHeight = 6;
@@ -89,7 +101,8 @@ export function createGame(canvas: HTMLCanvasElement) {
 
 	// --- Pillars ---
 	const pmat = new StandardMaterial("pmat", scene);
-	pmat.diffuseColor = new Color3(0.25, 0.22, 0.18);
+	pmat.diffuseColor = new Color3(...PILLAR_COLOR);
+	pmat.emissiveColor = new Color3(...PILLAR_EMISSIVE_COLOR);
 	for (let i = 0; i < PILLAR_XZ.length; i++) {
 		const [px, pz] = PILLAR_XZ[i];
 		const p = MeshBuilder.CreateCylinder(

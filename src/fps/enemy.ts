@@ -7,13 +7,14 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import type { Scene } from "@babylonjs/core/scene";
 
 import type { Hud } from "./hud.ts";
+import { ENEMY_DIFFUSE_COLOR, ENEMY_EMISSIVE_COLOR } from "./layout.ts";
 
 export function createEnemySystem(scene: Scene, camera: FreeCamera, hud: Hud) {
 	const enemies: Mesh[] = [];
 
 	const mat = new StandardMaterial("enemyMat", scene);
-	mat.diffuseColor = new Color3(0.6, 0.15, 0.18);
-	mat.emissiveColor = new Color3(0.15, 0.02, 0.02);
+	mat.diffuseColor = new Color3(...ENEMY_DIFFUSE_COLOR);
+	mat.emissiveColor = new Color3(...ENEMY_EMISSIVE_COLOR);
 
 	function spawn(pos: Vector3) {
 		const e = MeshBuilder.CreateSphere(
