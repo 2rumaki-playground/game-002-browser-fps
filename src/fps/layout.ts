@@ -12,7 +12,7 @@ export const PILLAR_XZ: readonly (readonly [number, number])[] = [
 	[5, -5],
 	[-5, 5],
 	[5, 5],
-	[0, -8],
+	[0, -3],
 	[0, 8],
 ];
 
