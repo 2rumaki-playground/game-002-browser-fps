@@ -26,7 +26,7 @@
 | ---------------- | ------------------------------------------------- | ----------------------------- | ---------------- |
 | ENEMY_HP         | [constants.md](./constants.md#敵共通)             | 撃破に必要な弾数              | 爽快感・難易度   |
 | ENEMY_SPEED      | [constants.md](./constants.md#敵共通)             | 接敵までの時間、回避難度      | 緊張感           |
-| ENEMY_MELEE_RANGE| [constants.md](./constants.md#敵共通)             | 被ダメージ頻度                | 難易度           |
+| ENEMY_MELEE_RANGE | [constants.md](./constants.md#敵共通)             | 被ダメージ頻度                | 難易度           |
 | ENEMY_MELEE_DPS  | [constants.md](./constants.md#敵共通)             | プレイヤーHP減少速度          | 難易度           |
 
 ## 影響関係図
