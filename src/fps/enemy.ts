@@ -5,6 +5,7 @@ import type { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import type { Mesh } from "@babylonjs/core/Meshes/mesh";
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
 import type { Scene } from "@babylonjs/core/scene";
+
 import type { Hud } from "./hud.ts";
 import { ENEMY_DIFFUSE_COLOR, ENEMY_EMISSIVE_COLOR } from "./layout.ts";
 
