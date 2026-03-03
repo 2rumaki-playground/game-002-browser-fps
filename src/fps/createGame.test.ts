@@ -35,6 +35,27 @@ describe("scene layout", () => {
 			).toBeGreaterThan(minClearance);
 		}
 	});
+
+	it("ゲーム開始時にプレイヤー前方の柱が視界を大きく遮らない", () => {
+		const MAX_ANGULAR_SIZE_DEG = 25;
+
+		for (const [px, pz] of PILLAR_XZ) {
+			const relX = px - CAMERA_START_X;
+			const relZ = pz - CAMERA_START_Z;
+
+			// カメラは+Z方向を向くため、relZ > 0 の柱のみが前方にある
+			if (relZ <= 0) continue;
+
+			const dist = Math.hypot(relX, relZ);
+			const angularSizeDeg =
+				(2 * Math.atan(PILLAR_DIAMETER / (2 * dist)) * 180) / Math.PI;
+
+			expect(
+				angularSizeDeg,
+				`柱(${px},${pz})の見かけ角度${angularSizeDeg.toFixed(1)}°が${MAX_ANGULAR_SIZE_DEG}°を超える`,
+			).toBeLessThan(MAX_ANGULAR_SIZE_DEG);
+		}
+	});
 });
 
 describe("scene brightness", () => {
