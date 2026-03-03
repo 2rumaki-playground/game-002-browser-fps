@@ -11,10 +11,18 @@ const KEY_S = 83;
 const KEY_D = 68;
 
 export function configureWasdKeys(camera: CameraKeys): void {
-	camera.keysUp.push(KEY_W);
-	camera.keysDown.push(KEY_S);
-	camera.keysLeft.push(KEY_A);
-	camera.keysRight.push(KEY_D);
+	if (!camera.keysUp.includes(KEY_W)) {
+		camera.keysUp.push(KEY_W);
+	}
+	if (!camera.keysDown.includes(KEY_S)) {
+		camera.keysDown.push(KEY_S);
+	}
+	if (!camera.keysLeft.includes(KEY_A)) {
+		camera.keysLeft.push(KEY_A);
+	}
+	if (!camera.keysRight.includes(KEY_D)) {
+		camera.keysRight.push(KEY_D);
+	}
 }
 
 export function createInput(canvas: HTMLCanvasElement) {
