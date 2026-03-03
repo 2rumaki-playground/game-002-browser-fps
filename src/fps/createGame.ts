@@ -11,7 +11,7 @@ import "@babylonjs/core/Collisions/collisionCoordinator";
 
 import { createEnemySystem } from "./enemy.ts";
 import { createHud } from "./hud.ts";
-import { createInput } from "./input.ts";
+import { configureWasdKeys, createInput } from "./input.ts";
 import { createShooting } from "./shooting.ts";
 
 export function createGame(canvas: HTMLCanvasElement) {
@@ -111,6 +111,7 @@ export function createGame(canvas: HTMLCanvasElement) {
 	camera.checkCollisions = true;
 	camera.applyGravity = true;
 	camera.ellipsoid = new Vector3(0.4, 0.9, 0.4);
+	configureWasdKeys(camera);
 	camera.attachControl(canvas, true);
 
 	// --- Overlay: click to lock ---

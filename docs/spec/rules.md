@@ -19,7 +19,7 @@
 ## 射撃
 
 - 左クリックで射撃
-- カメラ前方にRaycastを飛ばし、`metadata.isShootable` フラグを持つメッシュにヒット判定
+- カメラ前方にRaycastを飛ばし、`mesh.metadata.isShootable` フラグを持つメッシュにヒット判定
 - 射程距離あり（[constants.md](./constants.md)）
 - クールダウンあり（[constants.md](./constants.md)）
 - ヒット時にクロスヘアが拡大するフィードバック
