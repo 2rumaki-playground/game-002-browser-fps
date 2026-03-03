@@ -1,3 +1,22 @@
+interface CameraKeys {
+	keysUp: number[];
+	keysDown: number[];
+	keysLeft: number[];
+	keysRight: number[];
+}
+
+const KEY_W = 87;
+const KEY_A = 65;
+const KEY_S = 83;
+const KEY_D = 68;
+
+export function configureWasdKeys(camera: CameraKeys): void {
+	camera.keysUp.push(KEY_W);
+	camera.keysDown.push(KEY_S);
+	camera.keysLeft.push(KEY_A);
+	camera.keysRight.push(KEY_D);
+}
+
 export function createInput(canvas: HTMLCanvasElement) {
 	const keys = new Set<string>();
 
