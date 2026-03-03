@@ -103,7 +103,7 @@ export function createGame(canvas: HTMLCanvasElement) {
 	}
 
 	// --- FPS Camera ---
-	const camera = new FreeCamera("fpsCam", new Vector3(0, 1.8, -8), scene);
+	const camera = new FreeCamera("fpsCam", new Vector3(0, 1.8, -10), scene);
 	camera.minZ = 0.1;
 	camera.maxZ = 200;
 	camera.speed = 0.65;
