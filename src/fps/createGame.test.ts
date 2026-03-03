@@ -36,14 +36,14 @@ describe("scene layout", () => {
 		}
 	});
 
-	it("ゲーム開始時にプレイヤー正面の柱が視界を大きく遮らない", () => {
+	it("ゲーム開始時にプレイヤー前方の柱が視界を大きく遮らない", () => {
 		const MAX_ANGULAR_SIZE_DEG = 25;
 
 		for (const [px, pz] of PILLAR_XZ) {
 			const relX = px - CAMERA_START_X;
 			const relZ = pz - CAMERA_START_Z;
 
-			// カメラは+Z方向を向くため、relZ > 0 の柱のみが正面にある
+			// カメラは+Z方向を向くため、relZ > 0 の柱のみが前方にある
 			if (relZ <= 0) continue;
 
 			const dist = Math.hypot(relX, relZ);
