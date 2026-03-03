@@ -9,7 +9,7 @@
 | ダメージ       | [constants.md](./constants.md) 参照    |
 | 射程           | [constants.md](./constants.md) 参照    |
 | クールダウン   | [constants.md](./constants.md) 参照    |
-| ヒット判定対象 | `metadata.isShootable === true` のメッシュ |
+| ヒット判定対象 | `mesh.metadata?.isShootable === true` のメッシュ |
 
 ### ヒット時の挙動
 
