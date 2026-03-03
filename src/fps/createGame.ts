@@ -12,6 +12,13 @@ import "@babylonjs/core/Collisions/collisionCoordinator";
 import { createEnemySystem } from "./enemy.ts";
 import { createHud } from "./hud.ts";
 import { configureWasdKeys, createInput } from "./input.ts";
+import {
+	CAMERA_ELLIPSOID_XZ,
+	CAMERA_START_X,
+	CAMERA_START_Z,
+	PILLAR_DIAMETER,
+	PILLAR_XZ,
+} from "./layout.ts";
 import { createShooting } from "./shooting.ts";
 
 export function createGame(canvas: HTMLCanvasElement) {
@@ -83,34 +90,31 @@ export function createGame(canvas: HTMLCanvasElement) {
 	// --- Pillars ---
 	const pmat = new StandardMaterial("pmat", scene);
 	pmat.diffuseColor = new Color3(0.25, 0.22, 0.18);
-	const pillarPositions = [
-		new Vector3(-5, 3, -5),
-		new Vector3(5, 3, -5),
-		new Vector3(-5, 3, 5),
-		new Vector3(5, 3, 5),
-		new Vector3(0, 3, -8),
-		new Vector3(0, 3, 8),
-	];
-	for (let i = 0; i < pillarPositions.length; i++) {
+	for (let i = 0; i < PILLAR_XZ.length; i++) {
+		const [px, pz] = PILLAR_XZ[i];
 		const p = MeshBuilder.CreateCylinder(
 			`pillar_${i}`,
-			{ height: 6, diameter: 1.8 },
+			{ height: 6, diameter: PILLAR_DIAMETER },
 			scene,
 		);
-		p.position = pillarPositions[i];
+		p.position = new Vector3(px, 3, pz);
 		p.material = pmat;
 		p.checkCollisions = true;
 	}
 
 	// --- FPS Camera ---
-	const camera = new FreeCamera("fpsCam", new Vector3(0, 1.8, -8), scene);
+	const camera = new FreeCamera(
+		"fpsCam",
+		new Vector3(CAMERA_START_X, 1.8, CAMERA_START_Z),
+		scene,
+	);
 	camera.minZ = 0.1;
 	camera.maxZ = 200;
 	camera.speed = 0.65;
 	camera.angularSensibility = 3200;
 	camera.checkCollisions = true;
 	camera.applyGravity = true;
-	camera.ellipsoid = new Vector3(0.4, 0.9, 0.4);
+	camera.ellipsoid = new Vector3(CAMERA_ELLIPSOID_XZ, 0.9, CAMERA_ELLIPSOID_XZ);
 	configureWasdKeys(camera);
 	camera.attachControl(canvas, true);
 
