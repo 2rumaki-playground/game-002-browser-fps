@@ -4,12 +4,17 @@ import {
 	CAMERA_START_X,
 	CAMERA_START_Z,
 	ENEMY_DIFFUSE_COLOR,
+	ENEMY_EMISSIVE_COLOR,
 	GROUND_COLOR,
+	GROUND_EMISSIVE_COLOR,
+	LIGHT_GROUND_COLOR,
 	LIGHT_INTENSITY,
 	PILLAR_COLOR,
 	PILLAR_DIAMETER,
+	PILLAR_EMISSIVE_COLOR,
 	PILLAR_XZ,
 	WALL_COLOR,
+	WALL_EMISSIVE_COLOR,
 } from "./layout.ts";
 
 /** 知覚輝度を計算する（ITU-R BT.601） */
@@ -33,18 +38,31 @@ describe("scene layout", () => {
 });
 
 describe("scene brightness", () => {
-	const MIN_BRIGHTNESS = 0.25;
+	const MIN_BRIGHTNESS = 0.35;
 
+	/**
+	 * HemisphericLight では横向き面は groundColor 側で照らされる。
+	 * 最悪ケース（面がライトと直交）での見え方 =
+	 *   diffuse * groundColor * intensity + emissive
+	 */
 	it.each([
-		["地面", GROUND_COLOR],
-		["壁", WALL_COLOR],
-		["柱", PILLAR_COLOR],
-		["敵", ENEMY_DIFFUSE_COLOR],
-	] as const)("%sのマテリアルが視認可能な明るさである", (label, [r, g, b]) => {
-		const brightness = perceivedBrightness(r, g, b) * LIGHT_INTENSITY;
+		["地面", GROUND_COLOR, GROUND_EMISSIVE_COLOR],
+		["壁", WALL_COLOR, WALL_EMISSIVE_COLOR],
+		["柱", PILLAR_COLOR, PILLAR_EMISSIVE_COLOR],
+		["敵", ENEMY_DIFFUSE_COLOR, ENEMY_EMISSIVE_COLOR],
+	] as const)("%sのマテリアルが視認可能な明るさである", (label, [dr, dg, db], [
+		er,
+		eg,
+		eb,
+	]) => {
+		// groundColor 側のみで照らされた場合の最低輝度
+		const litR = dr * LIGHT_GROUND_COLOR[0] * LIGHT_INTENSITY + er;
+		const litG = dg * LIGHT_GROUND_COLOR[1] * LIGHT_INTENSITY + eg;
+		const litB = db * LIGHT_GROUND_COLOR[2] * LIGHT_INTENSITY + eb;
+		const brightness = perceivedBrightness(litR, litG, litB);
 		expect(
 			brightness,
-			`${label}の知覚輝度${brightness.toFixed(3)}が最小値${MIN_BRIGHTNESS}未満`,
+			`${label}の最低知覚輝度${brightness.toFixed(3)}が閾値${MIN_BRIGHTNESS}未満`,
 		).toBeGreaterThanOrEqual(MIN_BRIGHTNESS);
 	});
 });
