@@ -16,7 +16,7 @@ export const PILLAR_XZ: readonly (readonly [number, number])[] = [
 	[0, 8],
 ];
 
-/** RGB色定数 [r, g, b] */
+/** RGB色定数 [r, g, b] / RGBA色定数 [r, g, b, a] */
 export const GROUND_COLOR: readonly [number, number, number] = [
 	0.45, 0.5, 0.55,
 ];
